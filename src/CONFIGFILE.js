@@ -1,4 +1,4 @@
 export default {
-    name: "CodeBook",
-    apiEndpoint: "https://raw.githubusercontent.com/aerugo/ethno-code-json/master/examples.json"
+    name: "Babel Codebook",
+    apiEndpoint: "https://raw.githubusercontent.com/aerugo/bbu-ethno-codes/master/examples.json"
 }
