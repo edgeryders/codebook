@@ -4,7 +4,7 @@
     <input type="text" v-model="searchQuery" placeholder="Search for codes..." />
     <p v-if="apiData === ''">Loading...</p>
     <div class="data" v-else>
-      <div v-for="dataItem in filteredData" :key="dataItem.description">
+      <div v-for="dataItem in filteredData" :key="dataItem.id">
         <h2>{{dataItem.name}} ({{dataItem.annotations_count}})</h2>
         <p class="smaller" v-if="dataItem.ancestry !== null">{{dataItem.name_with_path}}</p>
         <p>{{dataItem.description}}</p>
