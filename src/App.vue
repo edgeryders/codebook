@@ -5,9 +5,11 @@
     <p v-if="apiData === ''">Loading...</p>
     <div class="data" v-else>
       <div v-for="dataItem in filteredData" :key="dataItem.id">
-        <h2>{{dataItem.name}} ({{dataItem.annotations_count}})</h2>
-        <p class="smaller" v-if="dataItem.ancestry !== null">{{dataItem.name_with_path}}</p>
-        <p>{{dataItem.description}}</p>
+        <div v-if="dataItem.annotations_count > 0">
+          <h2>{{dataItem.name}} ({{dataItem.annotations_count}})</h2>
+          <p class="smaller" v-if="dataItem.ancestry !== null">{{dataItem.name_with_path}}</p>
+          <p>{{dataItem.description}}</p>
+        </div>
       </div>
     </div>
   </div>
