@@ -71,7 +71,22 @@ export default {
   },
   mounted() {
     fetch(this.apiEndpoint, {headers: {Accept: 'application/json'}, method: 'GET'}).then(data => data.json()).then(data => {
-      this.apiData = data;
+      this.apiData = [];
+      data.forEach(element => {
+        let term = element;
+        if(element.name.slice(0,3) != '(A)') {
+          if(element.name.slice(0,3) == '(C)') {
+            term.name = term.name.slice(3)
+            term.ancestry = 'character'
+            term.name_with_path = 'character'
+          }
+          term.name = term.name.charAt(0).toUpperCase() + term.name.slice(1)
+          if (term.description) {
+            term.description = term.description.charAt(0).toUpperCase() + term.description.slice(1)
+          }
+          this.apiData.push(term)
+        }
+      })
     });
     document.title = this.name;
   },
