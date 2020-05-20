@@ -70,14 +70,17 @@ export default {
     }
   },
   mounted() {
-    fetch(this.apiEndpoint).then(data => data.json()).then(data => {
+    fetch(this.apiEndpoint, {headers: {Accept: 'application/json'}, method: 'GET'}).then(data => data.json()).then(data => {
       this.apiData = data;
     });
     document.title = this.name;
   },
   methods: {
+    description(dataItem) {
+      return ((dataItem.description) ? dataItem.description : '' )
+    },
     shouldShow(dataItem) {
-      return (dataItem.description.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1) || 
+      return (this.description(dataItem).toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1) || 
         (dataItem.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1);
     }
   },

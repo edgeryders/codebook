@@ -1,4 +1,4 @@
 export default {
     name: "Babel Codebook",
-    apiEndpoint: "https://raw.githubusercontent.com/aerugo/bbu-ethno-codes/master/current.json"
+    apiEndpoint: "https://bbu.world/annotator/codes.json?per_page=5000&page=1"
 }
