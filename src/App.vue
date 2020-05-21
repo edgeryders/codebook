@@ -1,11 +1,11 @@
 <template>
   <div class="main">
     <h1>{{name}}</h1>
-    <input type="text" v-model="searchQuery" placeholder="Search for codes..." />
+    <input type="text" v-model="searchQuery" placeholder="Search for codes..." /> <span>with at least </span> <input type="text" v-model="occurencesFilter" class="number" placeholder="" /> <span>occurrences </span>
     <p v-if="apiData === ''">Loading...</p>
     <div class="data" v-else>
       <div v-for="dataItem in filteredData" :key="dataItem.id">
-        <div v-if="dataItem.annotations_count > 0">
+        <div v-if="dataItem.annotations_count > 0 && Number(dataItem.annotations_count) >= Number(occurrences)">
           <h2>{{dataItem.name}} ({{dataItem.annotations_count}})</h2>
           <p class="smaller" v-if="dataItem.ancestry !== null">{{dataItem.name_with_path}}</p>
           <p>{{dataItem.description}}</p>
@@ -44,6 +44,9 @@
   input:focus {
     outline: 0;
   }
+  .number {
+    width: 20px;
+  }
   h2 {
     font-size: 16px;
     margin-bottom: 5px;
@@ -57,6 +60,11 @@
     margin-top: 2px;
     color: $dull;
   }
+  span {
+    font-style: italic;
+    font-weight: normal;
+    color: $dull;
+  }
 </style>
 
 <script>
@@ -66,6 +74,7 @@ export default {
     return {
       ...CONFIG,
       searchQuery: "",
+      occurencesFilter: 2,
       apiData: ""
     }
   },
@@ -100,6 +109,9 @@ export default {
     }
   },
   computed: {
+    occurrences() {
+      return this.occurencesFilter;
+    },
     filteredData() {
       return this.apiData.filter((dataItem) => this.shouldShow(dataItem)).sort((a,b) => {
         if (a.name.trim().toLowerCase() > b.name.trim().toLowerCase()) {
